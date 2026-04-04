@@ -24,6 +24,7 @@ export interface Section {
   content: string;
   visualType: VisualType;
   order: number;
+  imagePrompts?: string[];
 }
 
 export interface ParseResult {
@@ -47,7 +48,7 @@ export interface GeneratedImage {
   id: string;
   filename: string;
   data: string;
-  thumbnail: string;
+  thumbnail?: string;
   sectionId: string;
 }
 

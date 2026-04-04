@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
-import { Upload, FileText, X, Check } from 'lucide-react';
+import { Upload, X, Check } from 'lucide-react';
 import { DocumentParser } from '../../services/documentParser';
-import { SUPPORTED_FILE_FORMATS } from '../../constants';
 import { formatFileSize } from '../../utils';
 import { cn } from '../../utils';
 
@@ -68,26 +67,6 @@ export function DocumentUploader({ onContentLoad }: DocumentUploaderProps) {
       handleFile(file);
     }
   }, [handleFile]);
-
-  const handlePaste = useCallback(async () => {
-    try {
-      const text = await navigator.clipboard.readText();
-      if (text.trim()) {
-        onContentLoad(text, {
-          fileName: '粘贴的内容',
-          fileType: 'text',
-          fileSize: text.length
-        });
-        setLoadedFile({
-          name: '粘贴的内容',
-          size: text.length,
-          type: 'text'
-        });
-      }
-    } catch (err) {
-      setError('无法读取剪贴板内容');
-    }
-  }, [onContentLoad]);
 
   const handleClear = () => {
     setLoadedFile(null);

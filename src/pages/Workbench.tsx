@@ -8,13 +8,12 @@ import { PromptGuide } from '../components/workbench/PromptGuide';
 import { SectionList } from '../components/workbench/SectionList';
 import { PreviewPanel } from '../components/workbench/PreviewPanel';
 import { useContentStore } from '../stores';
-import { generateImages } from '../services/geminiApi';
-import { Button } from '../components/ui/button';
+import { Button } from '../components/ui/Button';
 
 export function Workbench() {
   const navigate = useNavigate();
   const { apiKey } = useSettingsStore();
-  const { sections, setSections, markdown, setMarkdown, promptGuide } = useContentStore();
+  const { sections, setSections, markdown, setMarkdown } = useContentStore();
   const [showWelcome, setShowWelcome] = useState(false);
   const [previewCollapsed, setPreviewCollapsed] = useState(false);
   const [previewFullscreen, setPreviewFullscreen] = useState(false);
@@ -28,10 +27,6 @@ export function Workbench() {
 
   const handleContentLoad = (content: string) => {
     setMarkdown(content);
-  };
-
-  const handleGenerate = async () => {
-    // 在 PreviewPanel 中处理
   };
 
   const handleGoToSettings = () => {

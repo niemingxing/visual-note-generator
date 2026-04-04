@@ -1,4 +1,4 @@
-import { Edit, Trash2, Plus, Image as ImageIcon, ChevronDown, ChevronRight, Sparkles, Loader2, X, Wand2, Check } from 'lucide-react';
+import { Edit, Trash2, ChevronDown, ChevronRight, Sparkles, Loader2, X, Wand2, Check } from 'lucide-react';
 import type { Section } from '../../types.ts';
 import { useContentStore, useGenerationStore, useSettingsStore, usePreferencesStore } from '../../stores';
 import { analyzeContent, generateSingleImage } from '../../services/geminiApi';
@@ -7,11 +7,10 @@ import { useState } from 'react';
 import { Button } from '../ui/Button';
 
 interface SectionListProps {
-  onEdit?: (section: Section) => void;
   onSectionsUpdate?: (sections: Section[]) => void;
 }
 
-export function SectionList({ onEdit, onSectionsUpdate }: SectionListProps) {
+export function SectionList({ onSectionsUpdate }: SectionListProps) {
   const { sections, updateSection, removeSection, markdown, promptGuide } = useContentStore();
   const { images, addImage, error, setError } = useGenerationStore();
   const { apiKey } = useSettingsStore();

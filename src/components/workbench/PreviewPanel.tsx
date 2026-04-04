@@ -114,12 +114,6 @@ export function PreviewPanel({ sections }: PreviewPanelProps) {
     await handleGenerate();
   };
 
-  // 按分段分组图片
-  const imagesBySection = sections.map(section => ({
-    section,
-    images: images.filter(img => img.sectionId === section.id)
-  }));
-
   const totalImages = sections.length;
   const completedImages = images.length;
 
@@ -243,7 +237,7 @@ export function PreviewPanel({ sections }: PreviewPanelProps) {
                           handleDownload(image);
                         }}
                         size="sm"
-                        variant="secondary"
+                        variant="outline"
                         className="flex-1 h-7 text-xs"
                       >
                         <Download className="h-3 w-3 mr-1" />

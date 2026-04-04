@@ -38,7 +38,6 @@ export function QuickConfigBar({
   };
 
   const handleAdvancedChange = (field: keyof AdvancedSettings, value: number) => {
-    const newAdvanced = { ...advanced, [field]: value };
     setAdvanced({ [field]: value });
     onAdvancedChange?.({ [field]: value });
   };

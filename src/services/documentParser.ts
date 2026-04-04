@@ -1,5 +1,4 @@
 import * as pdfjsLib from 'pdfjs-dist';
-import { marked } from 'marked';
 import type { ParseResult } from '../types.ts';
 
 // 配置 PDF.js worker (使用动态导入以匹配版本)
