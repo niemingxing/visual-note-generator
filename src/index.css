@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: oklch(0.2 0.01 250);
+  --color-card: #ffffff;
+  --color-card-foreground: oklch(0.2 0.01 250);
+  --color-primary: oklch(0.55 0.22 265);
+  --color-primary-foreground: oklch(0.98 0.01 250);
+  --color-secondary: oklch(0.96 0.01 250);
+  --color-secondary-foreground: oklch(0.2 0.01 250);
+  --color-muted: oklch(0.96 0.01 250);
+  --color-muted-foreground: oklch(0.55 0.02 250);
+  --color-accent: oklch(0.96 0.01 250);
+  --color-accent-foreground: oklch(0.2 0.01 250);
+  --color-destructive: oklch(0.6 0.2 25);
+  --color-destructive-foreground: oklch(0.98 0.01 250);
+  --color-border: oklch(0.92 0.01 250);
+  --color-input: oklch(0.92 0.01 250);
+  --color-ring: oklch(0.55 0.22 265);
+
+  --radius-lg: 0.5rem;
+  --radius-md: 0.375rem;
+  --radius-sm: 0.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: oklch(0.15 0.01 250);
+    --color-foreground: oklch(0.98 0.01 250);
+    --color-card: oklch(0.15 0.01 250);
+    --color-card-foreground: oklch(0.98 0.01 250);
+    --color-primary: oklch(0.65 0.2 265);
+    --color-primary-foreground: oklch(0.2 0.01 250);
+    --color-secondary: oklch(0.25 0.01 250);
+    --color-secondary-foreground: oklch(0.98 0.01 250);
+    --color-muted: oklch(0.25 0.01 250);
+    --color-muted-foreground: oklch(0.65 0.02 250);
+    --color-accent: oklch(0.25 0.01 250);
+    --color-accent-foreground: oklch(0.98 0.01 250);
+    --color-destructive: oklch(0.4 0.15 25);
+    --color-destructive-foreground: oklch(0.98 0.01 250);
+    --color-border: oklch(0.25 0.01 250);
+    --color-input: oklch(0.25 0.01 250);
+    --color-ring: oklch(0.65 0.2 265);
+  }
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
