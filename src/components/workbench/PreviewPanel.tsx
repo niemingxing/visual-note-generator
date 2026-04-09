@@ -186,7 +186,7 @@ export function PreviewPanel({ sections }: PreviewPanelProps) {
         {/* 生成按钮 - 有分段但无图片 */}
         {sections.length > 0 && !isGenerating && images.length === 0 && (
           <div className="flex items-center justify-center h-40 border-2 border-dashed rounded-xl bg-muted/20">
-            <div className="text-center">
+            <div className="text-center pb-4">
               <Check className="h-10 w-10 mx-auto mb-3 text-green-500" />
               <p className="font-medium mb-1">分析完成！共 {sections.length} 个分段</p>
               <p className="text-sm text-muted-foreground mb-3">预计生成 {sections.length} 张图片</p>
