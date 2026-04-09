@@ -13,7 +13,8 @@ interface SectionListProps {
 export function SectionList({ onSectionsUpdate }: SectionListProps) {
   const { sections, updateSection, removeSection, markdown, promptGuide } = useContentStore();
   const { images, addImage, error, setError } = useGenerationStore();
-  const { apiKey } = useSettingsStore();
+  const { provider, apiKey, volcengineApiKey } = useSettingsStore();
+  const activeApiKey = provider === 'volcengine' ? volcengineApiKey : apiKey;
   const { style, aspectRatio, brand } = usePreferencesStore();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [analyzing, setAnalyzing] = useState(false);
@@ -58,7 +59,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
   };
 
   const handleAnalyze = async () => {
-    if (!markdown || !apiKey) {
+    if (!markdown || !activeApiKey) {
       setError('请先上传文档并配置 API 密钥');
       return;
     }
@@ -66,7 +67,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
     setAnalyzing(true);
     setError(null);
     try {
-      const newSections = await analyzeContent(markdown, promptGuide, apiKey);
+      const newSections = await analyzeContent(markdown, promptGuide, activeApiKey);
       onSectionsUpdate?.(newSections);
     } catch (err) {
       setError((err as Error).message);
@@ -101,7 +102,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
 
   // 生成单个分段的图片
   const handleGenerateSingle = async (section: Section) => {
-    if (!apiKey) {
+    if (!activeApiKey) {
       setError('请先在设置中配置 API 密钥');
       return;
     }
@@ -121,7 +122,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
         style,
         aspectRatio,
         brand,
-        apiKey
+        activeApiKey
       );
       addImage(result);
     } catch (err) {
@@ -133,7 +134,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
 
   // 重新生成该分段图片
   const handleRegenerateSingle = async (section: Section) => {
-    if (!apiKey) return;
+    if (!activeApiKey) return;
 
     setGeneratingSectionId(section.id);
     setError(null);
@@ -144,7 +145,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
         style,
         aspectRatio,
         brand,
-        apiKey
+        activeApiKey
       );
       // 移除旧图片，添加新图片
       // 这里简化处理，直接添加新图片
@@ -175,7 +176,7 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
               )}
               <Button
                 onClick={handleAnalyze}
-                disabled={!apiKey || analyzing}
+                disabled={!activeApiKey || analyzing}
                 size="sm"
               >
                 {analyzing ? (

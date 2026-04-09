@@ -14,7 +14,8 @@ interface PreviewPanelProps {
 }
 
 export function PreviewPanel({ sections }: PreviewPanelProps) {
-  const { apiKey } = useSettingsStore();
+  const { provider, apiKey, volcengineApiKey } = useSettingsStore();
+  const activeApiKey = provider === 'volcengine' ? volcengineApiKey : apiKey;
   const { style, aspectRatio, brand, advanced } = usePreferencesStore();
   const {
     isGenerating,
@@ -64,7 +65,7 @@ export function PreviewPanel({ sections }: PreviewPanelProps) {
   }, [lightboxOpen, closeLightbox, goToPrevious, goToNext]);
 
   const handleGenerate = async () => {
-    if (!apiKey) {
+    if (!activeApiKey) {
       setError('请先在设置中配置 API 密钥');
       return;
     }
@@ -85,7 +86,7 @@ export function PreviewPanel({ sections }: PreviewPanelProps) {
         style,
         aspectRatio,
         brand,
-        apiKey,
+        activeApiKey,
         advanced.workers,
         (current, total) => {
           setProgress(Math.round((current / total) * 100));
@@ -189,7 +190,7 @@ export function PreviewPanel({ sections }: PreviewPanelProps) {
               <Check className="h-10 w-10 mx-auto mb-3 text-green-500" />
               <p className="font-medium mb-1">分析完成！共 {sections.length} 个分段</p>
               <p className="text-sm text-muted-foreground mb-3">预计生成 {sections.length} 张图片</p>
-              <Button onClick={handleGenerate} disabled={!apiKey} size="sm">
+              <Button onClick={handleGenerate} disabled={!activeApiKey} size="sm">
                 <Sparkles className="h-4 w-4 mr-2" />
                 开始生成图片
               </Button>
