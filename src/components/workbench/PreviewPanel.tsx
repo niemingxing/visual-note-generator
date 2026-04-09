@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Download, Loader2, Check, Sparkles, ImageIcon, RotateCcw, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Section } from '../../types.ts';
 import { useSettingsStore, usePreferencesStore, useGenerationStore } from '../../stores';
-import { generateImages, downloadZip } from '../../services/geminiApi';
+import { generateImages, downloadZip } from '../../services/api';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { downloadBase64Image } from '../../utils';

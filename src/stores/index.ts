@@ -1,20 +1,36 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { StyleType, AspectRatioType, BrandInfo, AdvancedSettings, Section, GeneratedImage } from '../types.ts';
+import type { ModelProvider, StyleType, AspectRatioType, BrandInfo, AdvancedSettings, Section, GeneratedImage } from '../types.ts';
 import { DEFAULT_CONFIG, STORAGE_KEYS } from '../constants/index.ts';
 
 type SettingsState = {
+  provider: ModelProvider;
   apiKey: string;
+  volcengineApiKey: string;
+  volcengineChatModel: string;
+  volcengineImageModel: string;
+  setProvider: (provider: ModelProvider) => void;
   setApiKey: (key: string) => void;
+  setVolcengineApiKey: (key: string) => void;
+  setVolcengineChatModel: (model: string) => void;
+  setVolcengineImageModel: (model: string) => void;
   clearApiKey: () => void;
 };
 
 export const useSettingsStore = create<SettingsState>()(
   persist(
     (set) => ({
+      provider: 'google',
       apiKey: '',
+      volcengineApiKey: '',
+      volcengineChatModel: 'doubao-seed-2-0-pro-260215',
+      volcengineImageModel: 'doubao-seedream-4-5-251128',
+      setProvider: (provider) => set({ provider }),
       setApiKey: (key) => set({ apiKey: key }),
-      clearApiKey: () => set({ apiKey: '' })
+      setVolcengineApiKey: (key) => set({ volcengineApiKey: key }),
+      setVolcengineChatModel: (model) => set({ volcengineChatModel: model }),
+      setVolcengineImageModel: (model) => set({ volcengineImageModel: model }),
+      clearApiKey: () => set({ apiKey: '', volcengineApiKey: '' })
     }),
     {
       name: STORAGE_KEYS.API_KEY

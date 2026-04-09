@@ -12,18 +12,19 @@ import { Button } from '../components/ui/Button';
 
 export function Workbench() {
   const navigate = useNavigate();
-  const { apiKey } = useSettingsStore();
+  const { provider, apiKey, volcengineApiKey } = useSettingsStore();
   const { sections, setSections, markdown, setMarkdown } = useContentStore();
   const [showWelcome, setShowWelcome] = useState(false);
   const [previewCollapsed, setPreviewCollapsed] = useState(false);
   const [previewFullscreen, setPreviewFullscreen] = useState(false);
 
+  const hasKey = provider === 'volcengine' ? !!volcengineApiKey : !!apiKey;
+
   useEffect(() => {
-    // 检查是否是首次使用（没有 API 密钥）
-    if (!apiKey) {
+    if (!hasKey) {
       setShowWelcome(true);
     }
-  }, [apiKey]);
+  }, [hasKey]);
 
   const handleContentLoad = (content: string) => {
     setMarkdown(content);
@@ -48,7 +49,7 @@ export function Workbench() {
               onClick={handleGoToSettings}
               className="w-full py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
-              立即配置 API 密钥
+              前往设置配置 API 密钥
             </button>
             <button
               onClick={() => setShowWelcome(false)}
@@ -92,10 +93,11 @@ export function Workbench() {
                     <span className="text-xs text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
                   </summary>
                   <div className="px-4 pb-4">
-                    <div className="max-h-48 overflow-y-auto text-sm text-muted-foreground whitespace-pre-wrap">
-                      {markdown.slice(0, 1000)}
-                      {markdown.length > 1000 && '...'}
-                    </div>
+                    <textarea
+                      value={markdown}
+                      onChange={(e) => setMarkdown(e.target.value)}
+                      className="w-full max-h-48 min-h-24 text-sm text-muted-foreground resize-y focus:outline-none focus:ring-1 focus:ring-primary rounded p-1"
+                    />
                   </div>
                 </details>
               )}
