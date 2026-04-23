@@ -12,13 +12,13 @@ import { Button } from '../components/ui/Button';
 
 export function Workbench() {
   const navigate = useNavigate();
-  const { provider, apiKey, volcengineApiKey } = useSettingsStore();
+  const { provider, apiKey, volcengineApiKey, apimartApiKey } = useSettingsStore();
   const { sections, setSections, markdown, setMarkdown } = useContentStore();
   const [showWelcome, setShowWelcome] = useState(false);
   const [previewCollapsed, setPreviewCollapsed] = useState(false);
   const [previewFullscreen, setPreviewFullscreen] = useState(false);
 
-  const hasKey = provider === 'volcengine' ? !!volcengineApiKey : !!apiKey;
+  const hasKey = provider === 'volcengine' ? !!volcengineApiKey : provider === 'apimart' ? !!apimartApiKey : !!apiKey;
 
   useEffect(() => {
     if (!hasKey) {

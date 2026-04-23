@@ -14,8 +14,8 @@ interface PreviewPanelProps {
 }
 
 export function PreviewPanel({ sections }: PreviewPanelProps) {
-  const { provider, apiKey, volcengineApiKey } = useSettingsStore();
-  const activeApiKey = provider === 'volcengine' ? volcengineApiKey : apiKey;
+  const { provider, apiKey, volcengineApiKey, apimartApiKey } = useSettingsStore();
+  const activeApiKey = provider === 'volcengine' ? volcengineApiKey : provider === 'apimart' ? apimartApiKey : apiKey;
   const { style, aspectRatio, brand, advanced } = usePreferencesStore();
   const {
     isGenerating,

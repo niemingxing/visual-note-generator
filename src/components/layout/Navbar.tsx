@@ -5,7 +5,8 @@ import { useSettingsStore } from '../../stores';
 
 const PROVIDER_LABELS: Record<string, string> = {
   google: 'Google Gemini',
-  volcengine: '火山方舟'
+  volcengine: '火山方舟',
+  apimart: 'APIMart'
 };
 
 export function Navbar() {

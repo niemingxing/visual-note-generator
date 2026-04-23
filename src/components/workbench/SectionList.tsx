@@ -13,8 +13,8 @@ interface SectionListProps {
 export function SectionList({ onSectionsUpdate }: SectionListProps) {
   const { sections, updateSection, removeSection, markdown, promptGuide } = useContentStore();
   const { images, addImage, error, setError } = useGenerationStore();
-  const { provider, apiKey, volcengineApiKey } = useSettingsStore();
-  const activeApiKey = provider === 'volcengine' ? volcengineApiKey : apiKey;
+  const { provider, apiKey, volcengineApiKey, apimartApiKey } = useSettingsStore();
+  const activeApiKey = provider === 'volcengine' ? volcengineApiKey : provider === 'apimart' ? apimartApiKey : apiKey;
   const { style, aspectRatio, brand } = usePreferencesStore();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   const [analyzing, setAnalyzing] = useState(false);

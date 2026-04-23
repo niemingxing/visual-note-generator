@@ -9,11 +9,17 @@ type SettingsState = {
   volcengineApiKey: string;
   volcengineChatModel: string;
   volcengineImageModel: string;
+  apimartApiKey: string;
+  apimartChatModel: string;
+  apimartImageModel: string;
   setProvider: (provider: ModelProvider) => void;
   setApiKey: (key: string) => void;
   setVolcengineApiKey: (key: string) => void;
   setVolcengineChatModel: (model: string) => void;
   setVolcengineImageModel: (model: string) => void;
+  setApimartApiKey: (key: string) => void;
+  setApimartChatModel: (model: string) => void;
+  setApimartImageModel: (model: string) => void;
   clearApiKey: () => void;
 };
 
@@ -25,12 +31,18 @@ export const useSettingsStore = create<SettingsState>()(
       volcengineApiKey: '',
       volcengineChatModel: 'doubao-seed-2-0-pro-260215',
       volcengineImageModel: 'doubao-seedream-4-5-251128',
+      apimartApiKey: '',
+      apimartChatModel: 'gpt-4o',
+      apimartImageModel: 'gpt-image-2',
       setProvider: (provider) => set({ provider }),
       setApiKey: (key) => set({ apiKey: key }),
       setVolcengineApiKey: (key) => set({ volcengineApiKey: key }),
       setVolcengineChatModel: (model) => set({ volcengineChatModel: model }),
       setVolcengineImageModel: (model) => set({ volcengineImageModel: model }),
-      clearApiKey: () => set({ apiKey: '', volcengineApiKey: '' })
+      setApimartApiKey: (key) => set({ apimartApiKey: key }),
+      setApimartChatModel: (model) => set({ apimartChatModel: model }),
+      setApimartImageModel: (model) => set({ apimartImageModel: model }),
+      clearApiKey: () => set({ apiKey: '', volcengineApiKey: '', apimartApiKey: '' })
     }),
     {
       name: STORAGE_KEYS.API_KEY

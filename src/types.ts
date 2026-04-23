@@ -1,7 +1,7 @@
 // 添加一个实际值导出以避免 Vite 将文件视为空模块
 export const __TYPES_VERSION__ = '1.0.0';
 
-export type ModelProvider = 'google' | 'volcengine';
+export type ModelProvider = 'google' | 'volcengine' | 'apimart';
 
 export type StyleType = 'sketchnote' | 'minimalist' | 'colorful' | 'dark' | 'retro';
 export type AspectRatioType = '1:1' | '4:5' | '3:4' | '9:16' | '16:9' | '4:3';

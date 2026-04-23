@@ -1,5 +1,6 @@
 import * as gemini from './geminiApi';
 import * as volcano from './volcengineApi';
+import * as apimart from './apimartApi';
 import { useSettingsStore } from '../stores';
 import type { Section } from '../types.ts';
 
@@ -8,11 +9,14 @@ export async function analyzeContent(
   userPrompt: string,
   _apiKey: string
 ): Promise<Section[]> {
-  const { provider, apiKey, volcengineApiKey, volcengineChatModel } = useSettingsStore.getState();
-  if (provider === 'volcengine') {
-    return volcano.analyzeContent(content, userPrompt, volcengineApiKey, volcengineChatModel);
+  const state = useSettingsStore.getState();
+  if (state.provider === 'volcengine') {
+    return volcano.analyzeContent(content, userPrompt, state.volcengineApiKey, state.volcengineChatModel);
   }
-  return gemini.analyzeContent(content, userPrompt, apiKey);
+  if (state.provider === 'apimart') {
+    return apimart.analyzeContent(content, userPrompt, state.apimartApiKey, state.apimartChatModel);
+  }
+  return gemini.analyzeContent(content, userPrompt, state.apiKey);
 }
 
 export async function generateSingleImage(
@@ -22,11 +26,14 @@ export async function generateSingleImage(
   brand: any,
   _apiKey: string
 ): Promise<{ id: string; filename: string; data: string; sectionId: string }> {
-  const { provider, apiKey, volcengineApiKey, volcengineImageModel } = useSettingsStore.getState();
-  if (provider === 'volcengine') {
-    return volcano.generateSingleImage(section, style, aspectRatio, brand, volcengineApiKey, volcengineImageModel);
+  const state = useSettingsStore.getState();
+  if (state.provider === 'volcengine') {
+    return volcano.generateSingleImage(section, style, aspectRatio, brand, state.volcengineApiKey, state.volcengineImageModel);
   }
-  return gemini.generateSingleImage(section, style, aspectRatio, brand, apiKey);
+  if (state.provider === 'apimart') {
+    return apimart.generateSingleImage(section, style, aspectRatio, brand, state.apimartApiKey, state.apimartImageModel);
+  }
+  return gemini.generateSingleImage(section, style, aspectRatio, brand, state.apiKey);
 }
 
 export async function generateImages(
@@ -38,11 +45,14 @@ export async function generateImages(
   workers: number,
   onProgress?: (current: number, total: number) => void
 ): Promise<Array<{ id: string; filename: string; data: string; sectionId: string }>> {
-  const { provider, apiKey, volcengineApiKey, volcengineImageModel } = useSettingsStore.getState();
-  if (provider === 'volcengine') {
-    return volcano.generateImages(sections, style, aspectRatio, brand, volcengineApiKey, volcengineImageModel, workers, onProgress);
+  const state = useSettingsStore.getState();
+  if (state.provider === 'volcengine') {
+    return volcano.generateImages(sections, style, aspectRatio, brand, state.volcengineApiKey, state.volcengineImageModel, workers, onProgress);
   }
-  return gemini.generateImages(sections, style, aspectRatio, brand, apiKey, workers, onProgress);
+  if (state.provider === 'apimart') {
+    return apimart.generateImages(sections, style, aspectRatio, brand, state.apimartApiKey, state.apimartImageModel, workers, onProgress);
+  }
+  return gemini.generateImages(sections, style, aspectRatio, brand, state.apiKey, workers, onProgress);
 }
 
 export { downloadZip } from './geminiApi';
