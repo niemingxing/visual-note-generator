@@ -451,7 +451,7 @@ export function Settings() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-                  <li>访问 <a href="https://apimart.ai/keys" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">APIMart API Key 管理页面</a></li>
+                  <li>访问 <a href="https://apimart.ai/register?aff=eyL8" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">APIMart 注册页面</a></li>
                   <li>注册并登录账号</li>
                   <li>创建新的 API Key 并复制</li>
                   <li>对话模型和图片模型可使用默认值，也可自行更换</li>
