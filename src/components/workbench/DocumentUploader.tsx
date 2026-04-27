@@ -112,15 +112,15 @@ export function DocumentUploader({ onContentLoad }: DocumentUploaderProps) {
         onDragLeave={handleDragLeave}
         onClick={handleAreaClick}
         className={cn(
-          'border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer',
+          'border-2 border-dashed rounded-xl px-4 py-3 text-center transition-colors cursor-pointer',
           isDragging ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-primary/50'
         )}
       >
-        <Upload className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
-        <p className="text-sm text-muted-foreground mb-1">
-          点击或拖拽文件到此处
-        </p>
-        <div className="flex items-center justify-center gap-2 mt-3">
+        <div className="flex items-center justify-center gap-3">
+          <Upload className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+          <p className="text-sm text-muted-foreground">
+            点击或拖拽文件到此处 · 支持 PDF、Markdown、TXT
+          </p>
           <input
             id="file-input"
             type="file"
@@ -128,7 +128,6 @@ export function DocumentUploader({ onContentLoad }: DocumentUploaderProps) {
             className="hidden"
             accept=".pdf,.md,.markdown,.txt"
           />
-          <span className="text-sm text-muted-foreground">支持 PDF、Markdown、TXT</span>
         </div>
       </div>
 

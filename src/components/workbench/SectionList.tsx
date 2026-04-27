@@ -2,6 +2,7 @@ import { Edit, Trash2, ChevronDown, ChevronRight, Sparkles, Loader2, X, Wand2, C
 import type { Section } from '../../types.ts';
 import { useContentStore, useGenerationStore, useSettingsStore, usePreferencesStore } from '../../stores';
 import { analyzeContent, generateSingleImage } from '../../services/api';
+import { buildImagePrompt } from '../../services/promptBuilder';
 import { cn } from '../../utils';
 import { useState } from 'react';
 import { Button } from '../ui/Button';
@@ -279,19 +280,26 @@ export function SectionList({ onSectionsUpdate }: SectionListProps) {
                 {/* 展开的详情内容 */}
                 {isExpanded && (
                   <div className="px-3 pb-3 border-t pt-3">
-                    <p className="text-xs text-muted-foreground mb-3 line-clamp-3">
+                    <p className="text-xs text-muted-foreground mb-3 max-h-24 overflow-y-auto">
                       {section.content}
                     </p>
 
-                    {/* 提示词预览 */}
-                    {section.imagePrompts && section.imagePrompts.length > 0 && (
-                      <div className="mb-3">
-                        <p className="text-xs font-medium mb-1 text-muted-foreground">图片提示词：</p>
-                        <div className="text-xs bg-muted/50 rounded px-2 py-1.5 truncate" title={section.imagePrompts[0]}>
-                          {section.imagePrompts[0]}
-                        </div>
+                    {/* 实际图片提示词 */}
+                    <div className="mb-3">
+                      <p className="text-xs font-medium mb-1 text-muted-foreground">
+                        图片提示词 {section.imagePrompts?.[0] ? '(手动)' : '(自动)'}：
+                      </p>
+                      <div className="text-xs bg-muted/50 rounded px-2 py-2 max-h-40 overflow-y-auto whitespace-pre-wrap">
+                        {section.imagePrompts?.[0] || buildImagePrompt(
+                          section.content,
+                          style,
+                          aspectRatio,
+                          brand,
+                          section.title,
+                          section.visualType
+                        )}
                       </div>
-                    )}
+                    </div>
 
                     {/* 生成按钮区 */}
                     <div className="flex items-center justify-between p-2 bg-muted/30 rounded-lg">
